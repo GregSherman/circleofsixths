@@ -12,12 +12,8 @@ class IdentifiyProgressionModes(Question):
         self.num_chords = num_chords
         self.chord_numbers = random.sample(range(1, 8), num_chords)
         self.answer = [self.notes[i - 1] + MODES_CHORDS[mode][i - 1] for i in self.chord_numbers]
+        self.prompt = "In " + self.root + " " + self.mode + ", what chords make up the " + str(self.chord_numbers) + " progression?"
 
+    def make_verbose(self):
+        print("Root Note: " + self.root + "\nMode: " + self.mode + "\nNotes: " + str(self.notes) + "\nProgression: " + str(self.chord_numbers) + "\nAnswer: " + str(self.answer))
 
-b = IdentifiyProgressionModes("A", "Ionian", 4)
-print(b.root)
-print(b.mode)
-print(b.num_chords)
-print(b.chord_numbers)
-print(b.notes)
-print(b.answer)

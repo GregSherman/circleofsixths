@@ -2,7 +2,7 @@ LIST_OF_NOTES = ["A", "A#/Bb", "B", "C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb
 LIST_OF_MODES = ["Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian"]
 MODES_TONES = {"Ionian": "TTSTTTS", "Dorian": "TSTTTST", "Phrygian": "STTTSTT", "Lydian": "TTTSTTS", 
                "Mixolydian": "TTSTTST", "Aeolian": "TSTTSTT", "Locrian": "STTSTTT"}
-MODES_CHORDS = {"Ionian": ["M", "m7", "m7", "M7", "7", "m7", "Dim"], "Dorian": ["m7", "m7", "M7", "7", "m7", "Dim" "M"], 
+MODES_CHORDS = {"Ionian": ["M", "m7", "m7", "M7", "7", "m7", "Dim"], "Dorian": ["m7", "m7", "M7", "7", "m7", "Dim", "M"], 
                 "Phrygian": ["m7", "M7", "7", "m7", "Dim", "M", "m7"], "Lydian": ["M7", "7", "m7", "Dim", "M", "m7", "m7"], 
                 "Mixolydian": ["7", "m7", "Dim", "M", "m7", "m7", "M7"], "Aeolian": ["m7", "Dim", "M", "m7", "m7", "M7", "7"], 
                 "Locrian": ["Dim", "M", "m7", "m7", "M7", "7", "m7"]}
