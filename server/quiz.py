@@ -9,3 +9,5 @@ class Quiz:
         self.answers = answers
         self.num_questions = len(self.questions)
 
+    def export_json(self):
+        pass
