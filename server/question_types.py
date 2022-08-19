@@ -5,70 +5,62 @@ import random
 
 class IdentifiyProgressionModes(Question):
 
-    def __init__(self, root, mode, num_chords) -> None:
-        self.root = root
-        self.mode = mode
-        self.notes = ALL_MODES[self.root][self.mode]
-        self.num_chords = num_chords
-        self.chord_numbers = random.sample(range(1, 8), self.num_chords)
+    def __init__(self) -> None:
+        super().__init__()
+        self.worth = 6
 
-        answer = [self.notes[i - 1] + MODES_CHORDS[self.mode][i - 1] for i in self.chord_numbers]
-        prompt = "In " + self.root + " " + self.mode + ", what chords make up the " + str(self.chord_numbers) + " progression?"
-        answer_inputs = [LIST_OF_NOTES, MODES_CHORDS[self.mode]]
+    def generate_random(self) -> None:
+        root = random.choice(LIST_OF_NOTES)
+        mode = random.choice(LIST_OF_MODES)
+        notes = ALL_MODES[root][mode]
+        number_of_chords = random.choice(range(3,8))
+        progression = random.sample(range(1, 8), number_of_chords)
 
-        super().__init__(prompt, answer, answer_inputs)
+        self.answer = [notes[i - 1] + MODES_CHORDS[mode][i - 1] for i in progression]
+        self.prompt = "In " + root + " " + mode + ", what chords make up the " + str(progression) + " progression?"
+        self.answer_inputs = [LIST_OF_NOTES, MODES_CHORDS[mode]]
 
 class IdentifyNotesMode(Question):
 
-    def __init__(self, root, mode) -> None:
-        self.root = root
-        self.mode = mode
+    def __init__(self) -> None:
+        super().__init__()
+        self.worth = 3
+        
+    def generate_random(self) -> None:
+        root = random.choice(LIST_OF_NOTES)
+        mode = random.choice(LIST_OF_MODES)
 
-        answer = ALL_MODES[self.root][self.mode]
-        prompt = "Given the mode " + self.root + " " + self.mode + ", what are the notes of this mode?"
-        answer_inputs = LIST_OF_NOTES
-
-        super().__init__(prompt, answer, answer_inputs)
+        self.answer = ALL_MODES[root][mode]
+        self.prompt = "Given the mode " + root + " " + mode + ", what are the notes of this mode?"
+        self.answer_inputs = LIST_OF_NOTES
 
 class IdentifyModeGivenNotes(Question):
 
-    def __init__(self, root, mode) -> None:
-        self.root = root
-        self.notes = ALL_MODES[root][mode]
+    def __init__(self) -> None:
+        super().__init__()
+        self.worth = 3
 
-        answer = mode
-        prompt = "Given the notes " + str(self.notes) + ", what is the associated mode of " + self.root + "?"
-        answer_inputs = LIST_OF_MODES
+    def generate_random(self) -> None:
+        root = random.choice(LIST_OF_NOTES)
+        mode = random.choice(LIST_OF_MODES)
+        notes = ALL_MODES[root][mode]
 
-        super().__init__(prompt, answer, answer_inputs)
+        self.answer = mode
+        self.prompt = "Given the notes " + str(notes) + ", what is the associated mode of " + root + "?"
+        self.answer_inputs = LIST_OF_MODES
 
 class IdentifyNoteWithTones(Question):
 
-    def __init__(self, note, num_semi_tones) -> None:
-        self.note = note
-        self.num_semi_tones = num_semi_tones
-        initial_index = LIST_OF_NOTES.index(self.note)
-        new_index = (initial_index + num_semi_tones) % 12
+    def __init__(self) -> None:
+        super().__init__()
+        self.worth = 1
+    
+    def generate_random(self) -> None:
+        note = random.choice(LIST_OF_NOTES)
+        semi_tones = random.randint(1, 12)
+        start_index = LIST_OF_NOTES.index(note)
+        end_index = (start_index + semi_tones) % 12
 
-
-        answer = LIST_OF_NOTES[new_index]
-        prompt = "Which note is +" + str(round(self.num_semi_tones / 2)) + " tones away from " + self.note + "?"
-        answer_inputs = LIST_OF_NOTES
-        super().__init__(prompt, answer, answer_inputs)
-
-print("\n\n")
-test = IdentifiyProgressionModes("A", "Ionian", 4)
-test.make_verbose()
-print("\n\n")
-
-test = IdentifyNotesMode("A", "Ionian")
-test.make_verbose()
-print("\n\n")
-
-test = IdentifyModeGivenNotes("A", "Ionian")
-test.make_verbose()
-print("\n\n")
-
-test = IdentifyNoteWithTones("A", 4)
-test.make_verbose()
-print("\n\n")
+        self.answer = LIST_OF_NOTES[end_index]
+        self.prompt = "Which note is +" + str(round(semi_tones / 2, 1)) + " tones away from " + note + "?"
+        self.answer_inputs = LIST_OF_NOTES
